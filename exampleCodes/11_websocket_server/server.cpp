@@ -40,7 +40,7 @@ public:
 				}
 
 				if (recvDataSize <= 0 ||
-					(flags & Poco::Net::WebSocket::FRAME_OP_BITMASK) != Poco::Net::WebSocket::FRAME_OP_CLOSE)
+					(flags & Poco::Net::WebSocket::FRAME_OP_BITMASK) == Poco::Net::WebSocket::FRAME_OP_CLOSE)
 				{
 					break;
 				}
@@ -101,25 +101,25 @@ public:
 
 int main()
 {
-	// ¼­¹öÀÇ port´Â 19980 
+	// ì„œë²„ì˜ portëŠ” 19980 
 	Poco::Net::ServerSocket svs(19980);
 
 	Poco::Net::HTTPServerParams* pParams = new Poco::Net::HTTPServerParams;
-	Poco::Timespan timeout(300, 0); // 300ÃÊ
+	Poco::Timespan timeout(300, 0); // 300ì´ˆ
 	pParams->setTimeout(timeout);
 	
-		// HTTP ¼­¹ö Å¬·¡½º ÀÎ½ºÅÏ½º
+		// HTTP ì„œë²„ í´ë˜ìŠ¤ ì¸ìŠ¤í„´ìŠ¤
 	Poco::Net::HTTPServer srv(new SimpleRequestHandlerFactory(), svs, pParams);
 
 	
-	// ¼­¹ö ½ÃÀÛ
+	// ì„œë²„ ì‹œì‘
 	srv.start();
 
-	std::cout << "Port 19980À¸·Î ¼­¹ö ½ÃÀÛ" << std::endl;
+	std::cout << "Port 19980ìœ¼ë¡œ ì„œë²„ ì‹œì‘" << std::endl;
 
 	getchar();
 
-	// ¼­¹ö µ¿ÀÛ Áß´Ü
+	// ì„œë²„ ë™ì‘ ì¤‘ë‹¨
 	srv.stop();
 
 	return 0;
